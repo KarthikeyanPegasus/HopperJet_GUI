@@ -254,6 +254,7 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                                   "Drop_Down": "$dropdownvalue"
                                 }
                                 """;
+                            CustomInteractor().DeleteOut();
                             CustomInteractor().DeleteInp();
                             CustomInteractor().write(text);
                             CustomInteractor().Promiscous();
@@ -261,7 +262,7 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                               outputstr = "Loading ...";
                             });
                             for (var i = 0; i < 6; i++) {
-                              Timer(const Duration(seconds: 5), () {
+                              Timer(const Duration(seconds: 10), () {
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {
                                     isstarted = !value;

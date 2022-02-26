@@ -182,6 +182,7 @@ class _HostDetectionState extends State<HostDetection> {
                                 }
                                 """;
                             CustomInteractor().DeleteInp();
+                            CustomInteractor().DeleteOut();
                             CustomInteractor().DeleteErr();
                             CustomInteractor().write(text);
                             CustomInteractor().verifyCIDR();
@@ -256,9 +257,13 @@ class _HostDetectionState extends State<HostDetection> {
                                   "Drop_Down": "$dropdownvalue"
                                 }
                                 """;
+                            CustomInteractor().DeleteOut();
                             CustomInteractor().DeleteInp();
                             CustomInteractor().write(text);
                             CustomInteractor().Host();
+                            setState(() {
+                              outputstr = "Loading ...";
+                            });
                             for (var i = 0; i < 6; i++) {
                               Timer(const Duration(seconds: 5), () {
                                 CustomInteractor().CheckOutput().then((value) {

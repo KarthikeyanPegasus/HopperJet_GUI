@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hopperjet/interacter/interactor.dart';
 import 'package:hopperjet/presenter/localsource/source.dart';
 import 'package:hopperjet/view/arp.dart';
 import 'package:hopperjet/view/dhcp.dart';
@@ -66,6 +67,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 ),
           TextButton(
             onPressed: () {
+              CustomInteractor().Kill();
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const MyHomePage()));
             },
@@ -91,6 +93,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 ),
           TextButton(
             onPressed: () {
+              CustomInteractor().Kill();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const HostDetection()));
             },
@@ -105,6 +108,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
           ),
           TextButton(
             onPressed: () {
+              CustomInteractor().Kill();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const PromiscuousDetection()));
             },
@@ -130,6 +134,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 ),
           TextButton(
             onPressed: () {
+              CustomInteractor().Kill();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const ArpSpoofDetection()));
             },
@@ -144,6 +149,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
           ),
           TextButton(
             onPressed: () {
+              CustomInteractor().Kill();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const IpSpoofDetection()));
             },
@@ -158,6 +164,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
           ),
           TextButton(
             onPressed: () {
+              CustomInteractor().Kill();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const DnsSpoofDetection()));
             },
@@ -172,6 +179,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
           ),
           TextButton(
             onPressed: () {
+              CustomInteractor().Kill();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const DhcpSpoofDetection()));
             },
@@ -197,6 +205,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 ),
           TextButton(
             onPressed: () {
+              CustomInteractor().Kill();
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const PortScanner()));
             },
@@ -211,6 +220,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
           ),
           TextButton(
             onPressed: () {
+              CustomInteractor().Kill();
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const OsDetection()));
             },

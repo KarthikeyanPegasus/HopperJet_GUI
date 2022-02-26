@@ -307,6 +307,7 @@ class _PortScannerState extends State<PortScanner> {
                                   "Verbose":"$Verbose"
                                 }
                                 """;
+                            CustomInteractor().DeleteOut();
                             CustomInteractor().DeleteInp();
                             CustomInteractor().write(text);
                             CustomInteractor().port();

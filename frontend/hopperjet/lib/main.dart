@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hopperjet/interacter/interactor.dart';
 
 import 'package:hopperjet/view/welcomepage.dart';
 import 'package:window_size/window_size.dart';

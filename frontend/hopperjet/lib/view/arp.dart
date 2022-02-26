@@ -187,6 +187,7 @@ class _ArpSpoofDetectionState extends State<ArpSpoofDetection> {
                                   "Interface":"$interface"
                                 }
                                 """;
+                            CustomInteractor().DeleteOut();
                             CustomInteractor().DeleteInp();
                             CustomInteractor().write(text);
                             CustomInteractor().arp();

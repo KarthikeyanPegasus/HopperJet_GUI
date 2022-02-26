@@ -224,6 +224,7 @@ class _DhcpSpoofDetectionState extends State<DhcpSpoofDetection> {
                                   "Threshold":"$Threshold"
                                 }
                                 """;
+                            CustomInteractor().DeleteOut();
                             CustomInteractor().DeleteInp();
                             CustomInteractor().write(text);
                             CustomInteractor().dhcp();

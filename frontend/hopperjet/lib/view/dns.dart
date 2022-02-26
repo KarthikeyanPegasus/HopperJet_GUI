@@ -187,6 +187,7 @@ class _DnsSpoofDetectionState extends State<DnsSpoofDetection> {
                                   "Interface":"$interface"
                                 }
                                 """;
+                            CustomInteractor().DeleteOut();
                             CustomInteractor().DeleteInp();
                             CustomInteractor().write(text);
                             CustomInteractor().dns();

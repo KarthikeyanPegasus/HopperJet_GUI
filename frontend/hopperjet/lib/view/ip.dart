@@ -187,6 +187,7 @@ class _IpSpoofDetectionState extends State<IpSpoofDetection> {
                                   "Interface":"$interface"
                                 }
                                 """;
+                            CustomInteractor().DeleteOut();
                             CustomInteractor().DeleteInp();
                             CustomInteractor().write(text);
                             CustomInteractor().ip();

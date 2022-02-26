@@ -140,9 +140,7 @@ class CustomInteractor {
           );
   }
 
-  Future<void> kill() async {
-    Directory appDocDir = Directory.current;
-    String appDocPath = appDocDir.path;
+  void Kill() async {
     shell.kill();
   }
 

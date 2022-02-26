@@ -228,6 +228,7 @@ class _OsDetectionState extends State<OsDetection> {
                                   
                                 }
                                 """;
+                            CustomInteractor().DeleteOut();
                             CustomInteractor().DeleteInp();
                             CustomInteractor().write(text);
                             CustomInteractor().os();
