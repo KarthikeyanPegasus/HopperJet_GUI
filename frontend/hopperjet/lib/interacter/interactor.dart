@@ -120,10 +120,10 @@ class CustomInteractor {
 
     Platform.isWindows
         ? await shell.run(
-            'python $appDocPath/Test-Repo/GUI/Host_Discovery/Host_Discovery.py',
+            'python $appDocPath/Test-Repo/GUI/Promiscuous_Mode_Detection/Promiscuous_Mode_Detection.py',
           )
         : await shell.run(
-            'python3 $appDocPath/Test-Repo/GUI/Host_Discovery/Host_Discovery.py',
+            'python3 $appDocPath/Test-Repo/GUI/Promiscuous_Mode_Detection/Promiscuous_Mode_Detection.py',
           );
   }
 

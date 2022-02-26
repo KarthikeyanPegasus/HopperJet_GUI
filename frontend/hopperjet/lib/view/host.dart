@@ -185,7 +185,7 @@ class _HostDetectionState extends State<HostDetection> {
                             CustomInteractor().DeleteErr();
                             CustomInteractor().write(text);
                             CustomInteractor().verifyCIDR();
-                            Timer(const Duration(seconds: 1), () {
+                            Timer(const Duration(seconds: 2), () {
                               CustomInteractor().CheckErr().then((value) {
                                 setState(() {
                                   isfound = value;
@@ -229,6 +229,7 @@ class _HostDetectionState extends State<HostDetection> {
                           onChanged: (String? newValue) {
                             setState(() {
                               dropdownvalue = newValue!;
+                              outputstr = "All Ready Waiting to start...";
                             });
                           },
                         ),

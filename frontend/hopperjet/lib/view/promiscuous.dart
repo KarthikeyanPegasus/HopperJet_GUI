@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:hopperjet/interacter/interactor.dart';
 import 'package:hopperjet/presenter/localsource/source.dart';
 import 'package:hopperjet/view/widgets/navbar.dart';
 
@@ -10,10 +14,30 @@ class PromiscuousDetection extends StatefulWidget {
 }
 
 class _PromiscuousDetectionState extends State<PromiscuousDetection> {
-  bool isfound = false;
+  late bool isfound;
   String IPaddress = "";
-  String dropdownvalue = promList[0];
-  bool isstarted = false;
+  String dropdownvalue = promList[1];
+  late bool isstarted = false;
+  late String VerifiedIp;
+  late String outputstr;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      isstarted = false;
+      outputstr = """Loading ...""";
+    });
+    CustomInteractor().DeleteErr();
+    CustomInteractor().DeleteInp();
+    CustomInteractor().DeleteOut();
+    CustomInteractor().CheckErr().then((value) {
+      setState(() {
+        isfound = value;
+        log(isfound.toString());
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +184,7 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                           onChanged: (String? newValue) {
                             setState(() {
                               dropdownvalue = newValue!;
+                              outputstr = "All ready waiting to start...";
                             });
                           },
                         ),
@@ -172,10 +197,31 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                         child: TextButton(
                           onPressed: () {
                             // redirect to the verify func in python
-                            setState(() {
-                              isfound == true
-                                  ? isfound = false
-                                  : isfound = true;
+                            String text = """
+                                {
+                                  "Method": "Verify",
+                                  "IP_Address": "$IPaddress"
+                                }
+                                """;
+                            CustomInteractor().DeleteInp();
+                            CustomInteractor().DeleteErr();
+                            CustomInteractor().write(text);
+                            if (dropdownvalue == promList[0]) {
+                              CustomInteractor().verifyIP();
+                            } else {
+                              CustomInteractor().verifyCIDR();
+                            }
+
+                            Timer(const Duration(seconds: 2), () {
+                              CustomInteractor().CheckErr().then((value) {
+                                setState(() {
+                                  isfound = value;
+                                  log(isfound.toString());
+                                  !isfound
+                                      ? VerifiedIp = IPaddress
+                                      : IPaddress = "";
+                                });
+                              });
                             });
                           },
                           child: const Text(
@@ -197,6 +243,32 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                             left: MediaQuery.of(context).size.width * 0.05),
                         child: TextButton(
                           onPressed: () {
+                            String text = """
+                                {
+                                  "Method": "Promiscuous Detection",
+                                  "IP_Address": "$VerifiedIp",
+                                  "Drop_Down": "$dropdownvalue"
+                                }
+                                """;
+                            CustomInteractor().DeleteInp();
+                            CustomInteractor().write(text);
+                            CustomInteractor().Promiscous();
+
+                            Timer(const Duration(seconds: 15), () {
+                              CustomInteractor().CheckOutput().then((value) {
+                                setState(() {
+                                  isstarted = !value;
+                                  log(isstarted.toString());
+                                  if (!isstarted) {
+                                    CustomInteractor().Read().then((value) {
+                                      setState(() {
+                                        outputstr = value;
+                                      });
+                                    });
+                                  }
+                                });
+                              });
+                            });
                             // redirect to the start func in python
                           },
                           child: const Text(
