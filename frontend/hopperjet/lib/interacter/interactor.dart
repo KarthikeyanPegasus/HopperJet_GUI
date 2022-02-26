@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell_run.dart';
 
 class CustomInteractor {
+  var shell = Shell(throwOnError: false);
   Future<void> GitClone() async {
     var shell = Shell(throwOnError: false);
     await shell
@@ -81,7 +82,7 @@ class CustomInteractor {
   Future<void> verifyCIDR() async {
     Directory appDocDir = Directory.current;
     String appDocPath = appDocDir.path;
-    var shell = Shell(throwOnError: false);
+
     Platform.isWindows
         ? await shell.run(
             'python $appDocPath/Test-Repo/GUI/Validation/CIDR_IP_Validation.py')
@@ -92,7 +93,7 @@ class CustomInteractor {
   Future<void> verifyIP() async {
     Directory appDocDir = Directory.current;
     String appDocPath = appDocDir.path;
-    var shell = Shell(throwOnError: false);
+
     Platform.isWindows
         ? await shell
             .run('python $appDocPath/Test-Repo/GUI/Validation/IP_Validation.py')
@@ -103,7 +104,7 @@ class CustomInteractor {
   Future<void> Host() async {
     Directory appDocDir = Directory.current;
     String appDocPath = appDocDir.path;
-    var shell = Shell(throwOnError: false);
+
     Platform.isWindows
         ? await shell.run(
             'python $appDocPath/Test-Repo/GUI/Host_Discovery/Host_Discovery.py',
@@ -116,7 +117,6 @@ class CustomInteractor {
   Future<void> Promiscous() async {
     Directory appDocDir = Directory.current;
     String appDocPath = appDocDir.path;
-    var shell = Shell(throwOnError: false);
 
     Platform.isWindows
         ? await shell.run(
@@ -128,50 +128,93 @@ class CustomInteractor {
   }
 
   Future<void> arp() async {
-    var shell = Shell(throwOnError: false);
-    await shell
-        .run('git clone https://github.com/Sakthivel-Ramasamy/Test-Repo.git');
+    Directory appDocDir = Directory.current;
+    String appDocPath = appDocDir.path;
+
+    Platform.isWindows
+        ? await shell.run(
+            'python $appDocPath/Test-Repo/GUI/ARP_Spoofing_Detection/ARP_Spoofing_Detection.py',
+          )
+        : await shell.run(
+            'python3 $appDocPath/Test-Repo/GUI/ARP_Spoofing_Detection/ARP_Spoofing_Detection.py',
+          );
+  }
+
+  Future<void> kill() async {
+    Directory appDocDir = Directory.current;
+    String appDocPath = appDocDir.path;
+    shell.kill();
   }
 
   Future<void> dhcp() async {
-    var shell = Shell(throwOnError: false);
-    await shell
-        .run('git clone https://github.com/Sakthivel-Ramasamy/Test-Repo.git');
-    await shell.run('pwd');
+    Directory appDocDir = Directory.current;
+    String appDocPath = appDocDir.path;
+
+    Platform.isWindows
+        ? await shell.run(
+            'python $appDocPath/Test-Repo/GUI/DHCP_Starvation_Detection/DHCP_Starvation_Detection.py',
+          )
+        : await shell.run(
+            'python3 $appDocPath/Test-Repo/GUI/DHCP_Starvation_Detection/DHCP_Starvation_Detection.py',
+          );
   }
 
   Future<void> dns() async {
-    var shell = Shell(throwOnError: false);
-    await shell
-        .run('git clone https://github.com/Sakthivel-Ramasamy/Test-Repo.git');
-    await shell.run('pwd');
+    Directory appDocDir = Directory.current;
+    String appDocPath = appDocDir.path;
+
+    Platform.isWindows
+        ? await shell.run(
+            'python $appDocPath/Test-Repo/GUI/DNS_Spoofing_Detection/DNS_Spoofing_Detection.py',
+          )
+        : await shell.run(
+            'python3 $appDocPath/Test-Repo/GUI/DNS_Spoofing_Detection/DNS_Spoofing_Detection.py',
+          );
   }
 
   Future<void> ip() async {
-    var shell = Shell(throwOnError: false);
-    await shell
-        .run('git clone https://github.com/Sakthivel-Ramasamy/Test-Repo.git');
-    await shell.run('pwd');
+    Directory appDocDir = Directory.current;
+    String appDocPath = appDocDir.path;
+
+    Platform.isWindows
+        ? await shell.run(
+            'python $appDocPath/Test-Repo/GUI/IP_Spoofing_Detection/IP_Spoofing_Detection.py',
+          )
+        : await shell.run(
+            'python3 $appDocPath/Test-Repo/GUI/IP_Spoofing_Detection/IP_Spoofing_Detection.py',
+          );
   }
 
   Future<void> port() async {
-    var shell = Shell(throwOnError: false);
-    await shell
-        .run('git clone https://github.com/Sakthivel-Ramasamy/Test-Repo.git');
-    await shell.run('pwd');
+    Directory appDocDir = Directory.current;
+    String appDocPath = appDocDir.path;
+
+    Platform.isWindows
+        ? await shell.run(
+            'python $appDocPath/Test-Repo/GUI/Port_Scanner/Port_Scanner.py',
+          )
+        : await shell.run(
+            'python3 $appDocPath/Test-Repo/GUI/Port_Scanner/Port_Scanner.py',
+          );
   }
 
   Future<void> os() async {
-    var shell = Shell(throwOnError: false);
-    await shell
-        .run('git clone https://github.com/Sakthivel-Ramasamy/Test-Repo.git');
-    await shell.run('pwd');
+    Directory appDocDir = Directory.current;
+    String appDocPath = appDocDir.path;
+
+    Platform.isWindows
+        ? await shell.run(
+            'python $appDocPath/Test-Repo/GUI/OS_Detection/OS_Detection.py',
+          )
+        : await shell.run(
+            'python3 $appDocPath/Test-Repo/GUI/OS_Detection/OS_Detection.py',
+          );
   }
 
   Future<void> requirements() async {
     Directory appDocDir = Directory.current;
     String appDocPath = appDocDir.path;
-    var shell = Shell(throwOnError: false);
+
     await shell.run(
         'pip install -r  $appDocPath/Test-Repo/GUI/Requirements/Requirement.txt');
   }

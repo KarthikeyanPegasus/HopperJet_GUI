@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:hopperjet/interacter/interactor.dart';
 import 'package:hopperjet/presenter/localsource/source.dart';
 import 'package:hopperjet/view/widgets/navbar.dart';
 
@@ -10,9 +14,37 @@ class ArpSpoofDetection extends StatefulWidget {
 }
 
 class _ArpSpoofDetectionState extends State<ArpSpoofDetection> {
-  bool isfound = false;
+  late bool isfound;
   String interface = "";
-  bool isstarted = false;
+  late bool isstarted = false;
+
+  late String outputstr;
+
+  Future<void> checktimer() async {
+    CustomInteractor().CheckErr().then((value) {
+      setState(() {
+        isfound = value;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      isstarted = false;
+      outputstr = """Preparing ...""";
+    });
+    CustomInteractor().DeleteErr();
+    CustomInteractor().DeleteInp();
+    CustomInteractor().DeleteOut();
+    CustomInteractor().CheckErr().then((value) {
+      setState(() {
+        isfound = value;
+        log(isfound.toString());
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +87,7 @@ class _ArpSpoofDetectionState extends State<ArpSpoofDetection> {
                 width: MediaQuery.of(context).size.width - 120,
                 fit: BoxFit.cover,
               ),
-              isfound
+              !isfound
                   ? Container(
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width - 120,
@@ -149,11 +181,37 @@ class _ArpSpoofDetectionState extends State<ArpSpoofDetection> {
                         child: TextButton(
                           onPressed: () {
                             // redirect to the start func in python
+                            String text = """
+                                {
+                                  "Method": "ARP Detection",
+                                  "Interface":"$interface"
+                                }
+                                """;
+                            CustomInteractor().DeleteInp();
+                            CustomInteractor().write(text);
+                            CustomInteractor().arp();
+
                             setState(() {
-                              isfound == true
-                                  ? isfound = false
-                                  : isfound = true;
+                              outputstr = "Loading ...";
                             });
+                            for (var i = 0; i < 6; i++) {
+                              Timer(const Duration(seconds: 5), () {
+                                checktimer();
+                                CustomInteractor().CheckOutput().then((value) {
+                                  setState(() {
+                                    isstarted = !value;
+                                    log(isstarted.toString());
+                                    if (!isstarted) {
+                                      CustomInteractor().Read().then((value) {
+                                        setState(() {
+                                          outputstr = value;
+                                        });
+                                      });
+                                    }
+                                  });
+                                });
+                              });
+                            }
                           },
                           child: const Text(
                             "Start",
@@ -174,55 +232,19 @@ class _ArpSpoofDetectionState extends State<ArpSpoofDetection> {
                     margin: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.09),
                     child: Center(
-                      child: !isstarted
-                          ? Container(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              height: MediaQuery.of(context).size.height * 0.35,
-                              color: Colors.black,
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                child: const Text(
-                                  output,
-                                  style: TextStyle(color: Colors.greenAccent),
-                                ),
-                              ),
-                            )
-                          : Stack(
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.35,
-                                  color: Colors.black,
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 10, left: 10),
-                                    child: const Text(
-                                      output,
-                                      style:
-                                          TextStyle(color: Colors.greenAccent),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  color: const Color.fromARGB(1000, 43, 45, 46),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.35,
-                                  child: Center(
-                                    child: Image.asset(
-                                      "image/loading.gif",
-                                      height: 400,
-                                      width: 400,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                    ),
+                        child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      color: Colors.black,
+                      padding: const EdgeInsets.only(top: 5),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10, left: 10),
+                        child: Text(
+                          outputstr,
+                          style: const TextStyle(color: Colors.greenAccent),
+                        ),
+                      ),
+                    )),
                   )
                 ],
               ),

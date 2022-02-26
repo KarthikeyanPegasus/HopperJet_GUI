@@ -26,7 +26,7 @@ class _HostDetectionState extends State<HostDetection> {
     super.initState();
     setState(() {
       isstarted = false;
-      outputstr = """Loading ...""";
+      outputstr = """Preparing ...""";
     });
     CustomInteractor().DeleteErr();
     CustomInteractor().DeleteInp();
@@ -185,6 +185,9 @@ class _HostDetectionState extends State<HostDetection> {
                             CustomInteractor().DeleteErr();
                             CustomInteractor().write(text);
                             CustomInteractor().verifyCIDR();
+                            setState(() {
+                              outputstr = "Loading ...";
+                            });
                             Timer(const Duration(seconds: 2), () {
                               CustomInteractor().CheckErr().then((value) {
                                 setState(() {
@@ -193,6 +196,10 @@ class _HostDetectionState extends State<HostDetection> {
                                   !isfound
                                       ? VerifiedIp = IPaddress
                                       : IPaddress = "";
+                                  !isfound
+                                      ? outputstr = "Verified"
+                                      : outputstr =
+                                          "Please Check the IP- Invalid Format";
                                 });
                               });
                             });
@@ -252,22 +259,23 @@ class _HostDetectionState extends State<HostDetection> {
                             CustomInteractor().DeleteInp();
                             CustomInteractor().write(text);
                             CustomInteractor().Host();
-
-                            Timer(const Duration(seconds: 15), () {
-                              CustomInteractor().CheckOutput().then((value) {
-                                setState(() {
-                                  isstarted = !value;
-                                  log(isstarted.toString());
-                                  if (!isstarted) {
-                                    CustomInteractor().Read().then((value) {
-                                      setState(() {
-                                        outputstr = value;
+                            for (var i = 0; i < 6; i++) {
+                              Timer(const Duration(seconds: 5), () {
+                                CustomInteractor().CheckOutput().then((value) {
+                                  setState(() {
+                                    isstarted = !value;
+                                    log(isstarted.toString());
+                                    if (!isstarted) {
+                                      CustomInteractor().Read().then((value) {
+                                        setState(() {
+                                          outputstr = value;
+                                        });
                                       });
-                                    });
-                                  }
+                                    }
+                                  });
                                 });
                               });
-                            });
+                            }
                           },
                           child: const Text(
                             "Start",

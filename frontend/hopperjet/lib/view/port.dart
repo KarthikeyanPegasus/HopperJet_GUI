@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:hopperjet/interacter/interactor.dart';
 import 'package:hopperjet/presenter/localsource/source.dart';
 import 'package:hopperjet/view/widgets/navbar.dart';
 
@@ -10,10 +14,33 @@ class PortScanner extends StatefulWidget {
 }
 
 class _PortScannerState extends State<PortScanner> {
-  bool isfound = false;
+  late bool isfound;
   String IPaddress = "";
+  String Port = "";
+  String Timeout = "";
+  String Verbose = "";
   String dropdownvalue = portList[8];
-  bool isstarted = false;
+  late bool isstarted = false;
+  late String VerifiedIp;
+  late String outputstr;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      isstarted = false;
+      outputstr = """Preparing ...""";
+    });
+    CustomInteractor().DeleteErr();
+    CustomInteractor().DeleteInp();
+    CustomInteractor().DeleteOut();
+    CustomInteractor().CheckErr().then((value) {
+      setState(() {
+        isfound = value;
+        log(isfound.toString());
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,10 +177,30 @@ class _PortScannerState extends State<PortScanner> {
                         child: TextButton(
                           onPressed: () {
                             // redirect to the verify func in python
-                            setState(() {
-                              isfound == true
-                                  ? isfound = false
-                                  : isfound = true;
+                            String text = """
+                                {
+                                  "Method": "Verify",
+                                  "IP_Address": "$IPaddress"
+                                }
+                                """;
+                            CustomInteractor().DeleteInp();
+                            CustomInteractor().DeleteErr();
+                            CustomInteractor().write(text);
+                            CustomInteractor().verifyIP();
+                            Timer(const Duration(seconds: 2), () {
+                              CustomInteractor().CheckErr().then((value) {
+                                setState(() {
+                                  isfound = value;
+                                  log(isfound.toString());
+                                  !isfound
+                                      ? VerifiedIp = IPaddress
+                                      : IPaddress = "";
+                                  !isfound
+                                      ? outputstr = "Verified"
+                                      : outputstr =
+                                          "Please Check the IP- Invalid Format";
+                                });
+                              });
                             });
                           },
                           child: const Text(
@@ -186,6 +233,7 @@ class _PortScannerState extends State<PortScanner> {
                           onChanged: (String? newValue) {
                             setState(() {
                               dropdownvalue = newValue!;
+                              outputstr = "All ready Waiting to start.....";
                             });
                           },
                         ),
@@ -202,7 +250,7 @@ class _PortScannerState extends State<PortScanner> {
                           ),
                           onChanged: (text) {
                             setState(() {
-                              IPaddress = text;
+                              Port = text;
                             });
                           },
                         ),
@@ -219,7 +267,7 @@ class _PortScannerState extends State<PortScanner> {
                           ),
                           onChanged: (text) {
                             setState(() {
-                              IPaddress = text;
+                              Timeout = text;
                             });
                           },
                         ),
@@ -236,7 +284,7 @@ class _PortScannerState extends State<PortScanner> {
                           ),
                           onChanged: (text) {
                             setState(() {
-                              IPaddress = text;
+                              Verbose = text;
                             });
                           },
                         ),
@@ -249,6 +297,39 @@ class _PortScannerState extends State<PortScanner> {
                         child: TextButton(
                           onPressed: () {
                             // redirect to the start func in python
+                            String text = """
+                                {
+                                  "Method": "Port Scanner",
+                                  "IP_Address": "$VerifiedIp",
+                                  "Drop_Down": "$dropdownvalue",
+                                  "Port":"$Port",
+                                  "Time_Out":"$Timeout",
+                                  "Verbose":"$Verbose"
+                                }
+                                """;
+                            CustomInteractor().DeleteInp();
+                            CustomInteractor().write(text);
+                            CustomInteractor().port();
+                            setState(() {
+                              outputstr = "Loading ...";
+                            });
+                            for (var i = 0; i < 6; i++) {
+                              Timer(const Duration(seconds: 5), () {
+                                CustomInteractor().CheckOutput().then((value) {
+                                  setState(() {
+                                    isstarted = !value;
+                                    log(isstarted.toString());
+                                    if (!isstarted) {
+                                      CustomInteractor().Read().then((value) {
+                                        setState(() {
+                                          outputstr = value;
+                                        });
+                                      });
+                                    }
+                                  });
+                                });
+                              });
+                            }
                           },
                           child: const Text(
                             "Start",
@@ -269,55 +350,19 @@ class _PortScannerState extends State<PortScanner> {
                     margin: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.09),
                     child: Center(
-                      child: !isstarted
-                          ? Container(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              height: MediaQuery.of(context).size.height * 0.35,
-                              color: Colors.black,
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                child: const Text(
-                                  output,
-                                  style: TextStyle(color: Colors.greenAccent),
-                                ),
-                              ),
-                            )
-                          : Stack(
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.35,
-                                  color: Colors.black,
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 10, left: 10),
-                                    child: const Text(
-                                      output,
-                                      style:
-                                          TextStyle(color: Colors.greenAccent),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  color: const Color.fromARGB(1000, 43, 45, 46),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.35,
-                                  child: Center(
-                                    child: Image.asset(
-                                      "image/loading.gif",
-                                      height: 400,
-                                      width: 400,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                    ),
+                        child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      color: Colors.black,
+                      padding: const EdgeInsets.only(top: 5),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10, left: 10),
+                        child: Text(
+                          outputstr,
+                          style: const TextStyle(color: Colors.greenAccent),
+                        ),
+                      ),
+                    )),
                   )
                 ],
               ),
