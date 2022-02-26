@@ -264,7 +264,7 @@ class _HostDetectionState extends State<HostDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            for (var i = 0; i < 6; i++) {
+                            for (var i = 0; i < 16; i++) {
                               Timer(const Duration(seconds: 5), () {
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {

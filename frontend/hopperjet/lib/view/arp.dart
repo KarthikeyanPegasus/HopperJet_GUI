@@ -195,7 +195,7 @@ class _ArpSpoofDetectionState extends State<ArpSpoofDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            for (var i = 0; i < 6; i++) {
+                            for (var i = 0; i < 16; i++) {
                               Timer(const Duration(seconds: 5), () {
                                 checktimer();
                                 CustomInteractor().CheckOutput().then((value) {

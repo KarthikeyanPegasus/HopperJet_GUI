@@ -261,8 +261,8 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            for (var i = 0; i < 6; i++) {
-                              Timer(const Duration(seconds: 10), () {
+                            for (var i = 0; i < 16; i++) {
+                              Timer(const Duration(seconds: 15), () {
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {
                                     isstarted = !value;
