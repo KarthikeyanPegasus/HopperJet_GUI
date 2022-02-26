@@ -224,7 +224,7 @@ class _OsDetectionState extends State<OsDetection> {
                             String text = """
                                 {
                                   "Method": "OS Detection",
-                                  "IP_Address": "$VerifiedIp",
+                                  "IP_Address": "$VerifiedIp"
                                   
                                 }
                                 """;
