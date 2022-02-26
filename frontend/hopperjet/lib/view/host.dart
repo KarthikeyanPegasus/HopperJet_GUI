@@ -26,7 +26,7 @@ class _HostDetectionState extends State<HostDetection> {
     super.initState();
     setState(() {
       isstarted = false;
-      outputstr = """loading ...""";
+      outputstr = """Loading ...""";
     });
     CustomInteractor().DeleteErr();
     CustomInteractor().DeleteInp();
@@ -141,7 +141,8 @@ class _HostDetectionState extends State<HostDetection> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        backgroundColor: Color.fromARGB(500, 196, 196, 196),
+                        backgroundColor:
+                            const Color.fromARGB(500, 196, 196, 196),
                         padding: const EdgeInsets.only(
                             top: 10, bottom: 10, left: 15, right: 15),
                       ),
@@ -203,7 +204,8 @@ class _HostDetectionState extends State<HostDetection> {
                           style: TextButton.styleFrom(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)),
-                            backgroundColor: Color.fromARGB(500, 196, 196, 196),
+                            backgroundColor:
+                                const Color.fromARGB(500, 196, 196, 196),
                             padding: const EdgeInsets.only(top: 25, bottom: 25),
                           ),
                         ),
@@ -214,7 +216,8 @@ class _HostDetectionState extends State<HostDetection> {
                             top: 50,
                             left: MediaQuery.of(context).size.width * 0.05),
                         child: DropdownButton(
-                          dropdownColor: Color.fromARGB(500, 149, 149, 145),
+                          dropdownColor:
+                              const Color.fromARGB(500, 149, 149, 145),
                           value: dropdownvalue,
                           icon: const Icon(Icons.keyboard_arrow_down),
                           items: HostList.map((String items) {
@@ -284,61 +287,22 @@ class _HostDetectionState extends State<HostDetection> {
                     margin: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.09),
                     child: Center(
-                      child: !isstarted
-                          ? Container(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              height: MediaQuery.of(context).size.height * 0.35,
-                              color: Colors.black,
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Container(
-                                margin: EdgeInsets.only(top: 10, left: 10),
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  child: Text(
-                                    outputstr,
-                                    style: TextStyle(color: Colors.greenAccent),
-                                  ),
-                                ),
-                              ),
-                            )
-                          : Stack(
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.35,
-                                  color: Colors.black,
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 10, left: 10),
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.vertical,
-                                      child: Text(
-                                        outputstr,
-                                        style: TextStyle(
-                                            color: Colors.greenAccent),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  color: const Color.fromARGB(1000, 43, 45, 46),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.35,
-                                  child: Center(
-                                    child: Image.asset(
-                                      "image/loading.gif",
-                                      height: 400,
-                                      width: 400,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                    ),
+                        child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      color: Colors.black,
+                      padding: const EdgeInsets.only(top: 5),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10, left: 10),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Text(
+                            outputstr,
+                            style: TextStyle(color: Colors.greenAccent),
+                          ),
+                        ),
+                      ),
+                    )),
                   )
                 ],
               ),
