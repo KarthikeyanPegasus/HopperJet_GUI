@@ -194,8 +194,8 @@ class _IpSpoofDetectionState extends State<IpSpoofDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            for (var i = 0; i < 12; i++) {
-                              Timer(const Duration(seconds: 30), () {
+                            for (var i = 0; i < 24; i++) {
+                              Timer(const Duration(seconds: 15), () {
                                 checktimer();
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {

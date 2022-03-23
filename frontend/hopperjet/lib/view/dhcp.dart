@@ -232,9 +232,9 @@ class _DhcpSpoofDetectionState extends State<DhcpSpoofDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            var value = int.parse(Timeout) / 30;
+                            var value = int.parse(Timeout) / 15;
                             for (var i = 0; i < value; i++) {
-                              Timer(const Duration(seconds: 30), () {
+                              Timer(const Duration(seconds: 15), () {
                                 checktimer();
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {

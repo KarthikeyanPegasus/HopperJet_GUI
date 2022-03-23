@@ -187,21 +187,23 @@ class _PortScannerState extends State<PortScanner> {
                             CustomInteractor().DeleteErr();
                             CustomInteractor().write(text);
                             CustomInteractor().verifyIP();
-                            Timer(const Duration(seconds: 2), () {
-                              CustomInteractor().CheckErr().then((value) {
-                                setState(() {
-                                  isfound = value;
-                                  log(isfound.toString());
-                                  !isfound
-                                      ? VerifiedIp = IPaddress
-                                      : IPaddress = "";
-                                  !isfound
-                                      ? outputstr = "Verified"
-                                      : outputstr =
-                                          "Please Check the IP- Invalid Format";
+                            for (var i = 0; i < 36; i++) {
+                              Timer(const Duration(seconds: 4), () {
+                                CustomInteractor().CheckErr().then((value) {
+                                  setState(() {
+                                    isfound = value;
+                                    log(isfound.toString());
+                                    !isfound
+                                        ? VerifiedIp = IPaddress
+                                        : IPaddress = "";
+                                    !isfound
+                                        ? outputstr = "Verified"
+                                        : outputstr =
+                                            "Please Check the IP- Invalid Format";
+                                  });
                                 });
                               });
-                            });
+                            }
                           },
                           child: const Text(
                             "Verify",

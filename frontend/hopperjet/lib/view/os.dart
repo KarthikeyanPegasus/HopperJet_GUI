@@ -236,8 +236,8 @@ class _OsDetectionState extends State<OsDetection> {
                               outputstr = "Loading ...";
                             });
 
-                            for (var i = 0; i < 16; i++) {
-                              Timer(const Duration(seconds: 5), () {
+                            for (var i = 0; i < 36; i++) {
+                              Timer(const Duration(seconds: 4), () {
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {
                                     isstarted = !value;

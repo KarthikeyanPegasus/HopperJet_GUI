@@ -211,22 +211,23 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                             } else {
                               CustomInteractor().verifyCIDR();
                             }
-
-                            Timer(const Duration(seconds: 2), () {
-                              CustomInteractor().CheckErr().then((value) {
-                                setState(() {
-                                  isfound = value;
-                                  log(isfound.toString());
-                                  !isfound
-                                      ? VerifiedIp = IPaddress
-                                      : IPaddress = "";
-                                  !isfound
-                                      ? outputstr = "Verified"
-                                      : outputstr =
-                                          "Please Check the IP- Invalid Format";
+                            for (var i = 0; i < 32; i++) {
+                              Timer(const Duration(seconds: 4), () {
+                                CustomInteractor().CheckErr().then((value) {
+                                  setState(() {
+                                    isfound = value;
+                                    log(isfound.toString());
+                                    !isfound
+                                        ? VerifiedIp = IPaddress
+                                        : IPaddress = "";
+                                    !isfound
+                                        ? outputstr = "Verified"
+                                        : outputstr =
+                                            "Please Check the IP- Invalid Format";
+                                  });
                                 });
                               });
-                            });
+                            }
                           },
                           child: const Text(
                             "Verify",
