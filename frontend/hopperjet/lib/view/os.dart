@@ -235,7 +235,7 @@ class _OsDetectionState extends State<OsDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            Timer.periodic(const Duration(seconds: 5), (timer) {
+                            Timer.periodic(const Duration(seconds: 2), (timer) {
                               if (outputstr != "" &&
                                   outputstr !=
                                       "All ready Waiting to start....." &&

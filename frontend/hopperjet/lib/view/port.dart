@@ -315,7 +315,7 @@ class _PortScannerState extends State<PortScanner> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            Timer.periodic(const Duration(seconds: 5), (timer) {
+                            Timer.periodic(const Duration(seconds: 2), (timer) {
                               if (outputstr != "" &&
                                   outputstr !=
                                       "All ready Waiting to start....." &&
@@ -366,11 +366,13 @@ class _PortScannerState extends State<PortScanner> {
                       height: MediaQuery.of(context).size.height * 0.35,
                       color: Colors.black,
                       padding: const EdgeInsets.only(top: 5),
-                      child: Container(
-                        margin: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          outputstr,
-                          style: const TextStyle(color: Colors.greenAccent),
+                      child: SingleChildScrollView(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 10, left: 10),
+                          child: Text(
+                            outputstr,
+                            style: const TextStyle(color: Colors.greenAccent),
+                          ),
                         ),
                       ),
                     )),
