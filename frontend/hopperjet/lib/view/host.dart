@@ -266,7 +266,7 @@ class _HostDetectionState extends State<HostDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            Timer.periodic(const Duration(seconds: 5), (timer) {
+                            Timer.periodic(const Duration(seconds: 2), (timer) {
                               if (outputstr != "" &&
                                   outputstr !=
                                       "All ready Waiting to start....." &&

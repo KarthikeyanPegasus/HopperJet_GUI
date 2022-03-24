@@ -366,9 +366,10 @@ class _PortScannerState extends State<PortScanner> {
                       height: MediaQuery.of(context).size.height * 0.35,
                       color: Colors.black,
                       padding: const EdgeInsets.only(top: 5),
-                      child: SingleChildScrollView(
-                        child: Container(
-                          margin: EdgeInsets.only(top: 10, left: 10),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10, left: 10),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
                           child: Text(
                             outputstr,
                             style: const TextStyle(color: Colors.greenAccent),

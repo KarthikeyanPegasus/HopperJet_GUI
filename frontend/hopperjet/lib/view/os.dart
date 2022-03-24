@@ -288,9 +288,12 @@ class _OsDetectionState extends State<OsDetection> {
                       padding: const EdgeInsets.only(top: 5),
                       child: Container(
                         margin: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          outputstr,
-                          style: TextStyle(color: Colors.greenAccent),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Text(
+                            outputstr,
+                            style: TextStyle(color: Colors.greenAccent),
+                          ),
                         ),
                       ),
                     )),

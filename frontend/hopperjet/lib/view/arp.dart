@@ -195,7 +195,7 @@ class _ArpSpoofDetectionState extends State<ArpSpoofDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            Timer.periodic(const Duration(seconds: 5), (timer) {
+                            Timer.periodic(const Duration(seconds: 2), (timer) {
                               if (outputstr != "" &&
                                   outputstr !=
                                       "All ready Waiting to start....." &&
@@ -248,9 +248,12 @@ class _ArpSpoofDetectionState extends State<ArpSpoofDetection> {
                       padding: const EdgeInsets.only(top: 5),
                       child: Container(
                         margin: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          outputstr,
-                          style: const TextStyle(color: Colors.greenAccent),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Text(
+                            outputstr,
+                            style: const TextStyle(color: Colors.greenAccent),
+                          ),
                         ),
                       ),
                     )),

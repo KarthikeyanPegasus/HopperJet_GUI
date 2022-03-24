@@ -258,8 +258,17 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            for (var i = 0; i < 16; i++) {
-                              Timer(const Duration(seconds: 15), () {
+                            Timer.periodic(const Duration(seconds: 2), (timer) {
+                              if (outputstr != "" &&
+                                  outputstr !=
+                                      "All ready Waiting to start....." &&
+                                  outputstr !=
+                                      "Please Check the IP- Invalid Format" &&
+                                  outputstr != "Verified" &&
+                                  outputstr != "Loading ..." &&
+                                  outputstr != """Preparing ...""") {
+                                return;
+                              } else {
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {
                                     isstarted = !value;
@@ -273,8 +282,8 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                                     }
                                   });
                                 });
-                              });
-                            }
+                              }
+                            });
                             // redirect to the start func in python
                           },
                           child: const Text(
@@ -303,9 +312,12 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                       padding: const EdgeInsets.only(top: 5),
                       child: Container(
                         margin: EdgeInsets.only(top: 10, left: 10),
-                        child: Text(
-                          outputstr,
-                          style: const TextStyle(color: Colors.greenAccent),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Text(
+                            outputstr,
+                            style: const TextStyle(color: Colors.greenAccent),
+                          ),
                         ),
                       ),
                     )),
