@@ -266,8 +266,17 @@ class _HostDetectionState extends State<HostDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            for (var i = 0; i < 32; i++) {
-                              Timer(const Duration(seconds: 4), () {
+                            Timer.periodic(const Duration(seconds: 5), (timer) {
+                              if (outputstr != "" &&
+                                  outputstr !=
+                                      "All ready Waiting to start....." &&
+                                  outputstr !=
+                                      "Please Check the IP- Invalid Format" &&
+                                  outputstr != "Verified" &&
+                                  outputstr != "Loading ..." &&
+                                  outputstr != """Preparing ...""") {
+                                return;
+                              } else {
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {
                                     isstarted = !value;
@@ -281,8 +290,8 @@ class _HostDetectionState extends State<HostDetection> {
                                     }
                                   });
                                 });
-                              });
-                            }
+                              }
+                            });
                           },
                           child: const Text(
                             "Start",

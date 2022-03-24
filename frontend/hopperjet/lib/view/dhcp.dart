@@ -233,9 +233,17 @@ class _DhcpSpoofDetectionState extends State<DhcpSpoofDetection> {
                               outputstr = "Loading ...";
                             });
                             var value = int.parse(Timeout) / 15;
-                            for (var i = 0; i < value; i++) {
-                              Timer(const Duration(seconds: 15), () {
-                                checktimer();
+                            Timer.periodic(const Duration(seconds: 5), (timer) {
+                              if (outputstr != "" &&
+                                  outputstr !=
+                                      "All ready Waiting to start....." &&
+                                  outputstr !=
+                                      "Please Check the IP- Invalid Format" &&
+                                  outputstr != "Verified" &&
+                                  outputstr != "Loading ..." &&
+                                  outputstr != """Preparing ...""") {
+                                return;
+                              } else {
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {
                                     isstarted = !value;
@@ -249,8 +257,8 @@ class _DhcpSpoofDetectionState extends State<DhcpSpoofDetection> {
                                     }
                                   });
                                 });
-                              });
-                            }
+                              }
+                            });
                           },
                           child: const Text(
                             "Start",

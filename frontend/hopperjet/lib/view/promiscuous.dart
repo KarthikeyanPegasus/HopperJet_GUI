@@ -211,23 +211,32 @@ class _PromiscuousDetectionState extends State<PromiscuousDetection> {
                             } else {
                               CustomInteractor().verifyCIDR();
                             }
-                            for (var i = 0; i < 32; i++) {
-                              Timer(const Duration(seconds: 4), () {
-                                CustomInteractor().CheckErr().then((value) {
+                            Timer.periodic(const Duration(seconds: 5), (timer) {
+                              if (outputstr != "" &&
+                                  outputstr !=
+                                      "All ready Waiting to start..." &&
+                                  outputstr !=
+                                      "Please Check the IP- Invalid Format" &&
+                                  outputstr != "Verified" &&
+                                  outputstr != "Loading ..." &&
+                                  outputstr != """Preparing ...""") {
+                                return;
+                              } else {
+                                CustomInteractor().CheckOutput().then((value) {
                                   setState(() {
-                                    isfound = value;
-                                    log(isfound.toString());
-                                    !isfound
-                                        ? VerifiedIp = IPaddress
-                                        : IPaddress = "";
-                                    !isfound
-                                        ? outputstr = "Verified"
-                                        : outputstr =
-                                            "Please Check the IP- Invalid Format";
+                                    isstarted = !value;
+                                    log(isstarted.toString());
+                                    if (!isstarted) {
+                                      CustomInteractor().Read().then((value) {
+                                        setState(() {
+                                          outputstr = value;
+                                        });
+                                      });
+                                    }
                                   });
                                 });
-                              });
-                            }
+                              }
+                            });
                           },
                           child: const Text(
                             "Verify",

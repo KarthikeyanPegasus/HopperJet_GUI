@@ -235,9 +235,17 @@ class _OsDetectionState extends State<OsDetection> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-
-                            for (var i = 0; i < 36; i++) {
-                              Timer(const Duration(seconds: 4), () {
+                            Timer.periodic(const Duration(seconds: 5), (timer) {
+                              if (outputstr != "" &&
+                                  outputstr !=
+                                      "All ready Waiting to start....." &&
+                                  outputstr !=
+                                      "Please Check the IP- Invalid Format" &&
+                                  outputstr != "Verified" &&
+                                  outputstr != "Loading ..." &&
+                                  outputstr != """Preparing ...""") {
+                                return;
+                              } else {
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {
                                     isstarted = !value;
@@ -251,8 +259,8 @@ class _OsDetectionState extends State<OsDetection> {
                                     }
                                   });
                                 });
-                              });
-                            }
+                              }
+                            });
                           },
                           child: const Text(
                             "Start",

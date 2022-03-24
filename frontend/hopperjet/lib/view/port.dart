@@ -187,23 +187,22 @@ class _PortScannerState extends State<PortScanner> {
                             CustomInteractor().DeleteErr();
                             CustomInteractor().write(text);
                             CustomInteractor().verifyIP();
-                            for (var i = 0; i < 36; i++) {
-                              Timer(const Duration(seconds: 4), () {
-                                CustomInteractor().CheckErr().then((value) {
-                                  setState(() {
-                                    isfound = value;
-                                    log(isfound.toString());
-                                    !isfound
-                                        ? VerifiedIp = IPaddress
-                                        : IPaddress = "";
-                                    !isfound
-                                        ? outputstr = "Verified"
-                                        : outputstr =
-                                            "Please Check the IP- Invalid Format";
-                                  });
+
+                            Timer(const Duration(seconds: 4), () {
+                              CustomInteractor().CheckErr().then((value) {
+                                setState(() {
+                                  isfound = value;
+                                  log(isfound.toString());
+                                  !isfound
+                                      ? VerifiedIp = IPaddress
+                                      : IPaddress = "";
+                                  !isfound
+                                      ? outputstr = "Verified"
+                                      : outputstr =
+                                          "Please Check the IP- Invalid Format";
                                 });
                               });
-                            }
+                            });
                           },
                           child: const Text(
                             "Verify",
@@ -316,8 +315,17 @@ class _PortScannerState extends State<PortScanner> {
                             setState(() {
                               outputstr = "Loading ...";
                             });
-                            for (var i = 0; i < 16; i++) {
-                              Timer(const Duration(seconds: 5), () {
+                            Timer.periodic(const Duration(seconds: 5), (timer) {
+                              if (outputstr != "" &&
+                                  outputstr !=
+                                      "All ready Waiting to start....." &&
+                                  outputstr !=
+                                      "Please Check the IP- Invalid Format" &&
+                                  outputstr != "Verified" &&
+                                  outputstr != "Loading ..." &&
+                                  outputstr != """Preparing ...""") {
+                                return;
+                              } else {
                                 CustomInteractor().CheckOutput().then((value) {
                                   setState(() {
                                     isstarted = !value;
@@ -331,8 +339,8 @@ class _PortScannerState extends State<PortScanner> {
                                     }
                                   });
                                 });
-                              });
-                            }
+                              }
+                            });
                           },
                           child: const Text(
                             "Start",
