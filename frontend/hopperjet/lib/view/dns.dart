@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hopperjet/interacter/interactor.dart';
 import 'package:hopperjet/presenter/localsource/source.dart';
 import 'package:hopperjet/view/widgets/navbar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DnsSpoofDetection extends StatefulWidget {
   const DnsSpoofDetection({Key? key}) : super(key: key);
@@ -44,6 +45,14 @@ class _DnsSpoofDetectionState extends State<DnsSpoofDetection> {
         log(isfound.toString());
       });
     });
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -126,7 +135,7 @@ class _DnsSpoofDetectionState extends State<DnsSpoofDetection> {
                       right: MediaQuery.of(context).size.width * 0.05,
                     ),
                     child: const Text(
-                      F2theory,
+                      F5theory,
                       style: TextStyle(color: Colors.white, fontSize: 14),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 10,
@@ -140,6 +149,9 @@ class _DnsSpoofDetectionState extends State<DnsSpoofDetection> {
                     child: TextButton(
                       onPressed: () {
                         // redirect to the wiki page
+                        const url =
+                            'https://www.cloudflare.com/en-in/learning/dns/dns-cache-poisoning/';
+                        launchURL(url);
                       },
                       child: const Text(
                         LearnMoreHint,

@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hopperjet/presenter/localsource/source.dart';
 import 'package:hopperjet/view/widgets/navbar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../interacter/interactor.dart';
 
@@ -27,6 +28,14 @@ class _DhcpSpoofDetectionState extends State<DhcpSpoofDetection> {
         isfound = value;
       });
     });
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -127,7 +136,7 @@ class _DhcpSpoofDetectionState extends State<DhcpSpoofDetection> {
                       right: MediaQuery.of(context).size.width * 0.05,
                     ),
                     child: const Text(
-                      F2theory,
+                      F6theory,
                       style: TextStyle(color: Colors.white, fontSize: 14),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 10,
@@ -141,6 +150,9 @@ class _DhcpSpoofDetectionState extends State<DhcpSpoofDetection> {
                     child: TextButton(
                       onPressed: () {
                         // redirect to the wiki page
+                        const url =
+                            'http://cisco.num.edu.mn/CCNA_R&S2/course/module2/2.2.2.2/2.2.2.2.html';
+                        launchURL(url);
                       },
                       child: const Text(
                         LearnMoreHint,

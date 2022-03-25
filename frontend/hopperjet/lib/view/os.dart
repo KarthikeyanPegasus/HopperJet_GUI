@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hopperjet/interacter/interactor.dart';
 import 'package:hopperjet/presenter/localsource/source.dart';
 import 'package:hopperjet/view/widgets/navbar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OsDetection extends StatefulWidget {
   const OsDetection({Key? key}) : super(key: key);
@@ -36,6 +37,14 @@ class _OsDetectionState extends State<OsDetection> {
         log(isfound.toString());
       });
     });
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -118,7 +127,7 @@ class _OsDetectionState extends State<OsDetection> {
                       right: MediaQuery.of(context).size.width * 0.05,
                     ),
                     child: const Text(
-                      F1theory,
+                      F8theory,
                       style: TextStyle(color: Colors.white, fontSize: 14),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 10,
@@ -131,6 +140,10 @@ class _OsDetectionState extends State<OsDetection> {
                     ),
                     child: TextButton(
                       onPressed: () {
+                        //https://nmap.org/book/man-os-detection.html
+                        const url =
+                            'https://nmap.org/book/man-os-detection.html';
+                        launchURL(url);
                         // redirect to the wiki page
                       },
                       child: const Text(

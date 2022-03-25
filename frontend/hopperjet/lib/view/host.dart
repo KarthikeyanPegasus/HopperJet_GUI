@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hopperjet/interacter/interactor.dart';
 import 'package:hopperjet/presenter/localsource/source.dart';
 import 'package:hopperjet/view/widgets/navbar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HostDetection extends StatefulWidget {
   const HostDetection({Key? key}) : super(key: key);
@@ -37,6 +38,14 @@ class _HostDetectionState extends State<HostDetection> {
         log(isfound.toString());
       });
     });
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -133,6 +142,9 @@ class _HostDetectionState extends State<HostDetection> {
                     child: TextButton(
                       onPressed: () {
                         // redirect to the wiki page
+                        const url =
+                            'https://nmap.org/book/man-host-discovery.html';
+                        launchURL(url);
                       },
                       child: const Text(
                         LearnMoreHint,

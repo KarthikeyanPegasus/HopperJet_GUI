@@ -26,21 +26,28 @@ const Feature7 = "Port Scanner";
 const Feature8 = "OS Detection";
 // theories for the features
 const F1theory =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam phasellus vestibulum lorem sed risus ultricies tristique";
+    "One of the very first steps in any network reconnaissance mission is to reduce a (sometimes huge) \nset of IP ranges into a list of active or interesting hosts.\n Scanning every port of every single IP address is slow and usually unnecessary. ";
 const F2theory =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam phasellus vestibulum lorem sed risus ultricies tristique";
-const F3theory = "";
-const F4theory = "";
-const F5theory = "";
-const F6theory = "";
-const F7theory = "";
+    "Promiscuous mode is a type of computer networking operational mode in which all network data packets \ncan be accessed and viewed by all network adapters operating in this mode. \n Promiscuous mode is used to monitor(sniff) network traffic. However, experienced sniffers can prevent this \n(e.g., using carefully designed firewall settings). Our objective is to detect those anomalies operating in the network.";
+const F3theory =
+    "ARP spoofing is a type of attack in which a malicious actor sends falsified ARP (Address Resolution Protocol)\n messages over a local area network. This results in the linking of an attacker's MAC address with the IP address of a legitimate computer or server on the network. This is a type \nof Man-in-the-Middle (MITM) attack. It can also be used for DNS Spoofing attack.";
+const F4theory =
+    "A hacker uses tools to modify the source address in the packet header to make the receiving computer\n system think the packet is from a trusted source, such as another computer on a legitimate network, and accept it. \nIt is a technique often used by bad actors to invoke DDoS attacks against a target device or the surrounding infrastructure.\n Because this occurs at the network level, there are no external signs of tampering.";
+const F5theory =
+    "Domain Name Server (DNS) Spoofing is a cyber attack that tricks your computer into thinking it's going to the \ncorrect website, but it's not. Attackers use DNS cache poisoning to hijack internet traffic and steal user credentials or personal data";
+const F6theory =
+    "DHCP starvation attack is an attack that targets DHCP Server whereby the attacker broadcasts a large number \nof forged DHCP DISCOVER request messages with spoofed MAC addresses with the intent of exhausting all available IP\n addresses that can be allocated by the DHCP server. Under this attack, legitimate network users can be denied service.";
+const F7theory =
+    "Port Scanner is an application designed to probe a server or host for open ports.\n Port scanning is a method of determining which ports on a network are open and could be receiving or sending data.";
+const F8theory =
+    "Operating System (OS) Fingerprinting refers to the detection of the operating system of an end-host by analyzing packets,\n which originate from that system. It is used by security professionals and hackers for mapping remote networks and determining which vulnerabilities might be present to exploit";
 //List of all feature present in the hopperjet
-const ListFeature = "";
+const ListFeature = "HopperJet";
 // theories for the top four features
-const ListF1theory = "";
-const ListF2theory = "";
-const ListF3theory = "";
-const ListF4theory = "";
+const ListF1theory = "Fastest";
+const ListF2theory = "Accurate";
+const ListF3theory = "Multi-platform";
+const ListF4theory = "all in one";
 // Hints
 const LearnMoreHint = "Learn More";
 const IPHint = "Enter the IP address";
@@ -88,7 +95,7 @@ final List<String> CarouselImages = [
   "image/userfriendly.png",
   "image/fluid.jpg",
   "image/multiplatform.png",
-  "image/highaccuracy.jpg",
+  "image/highaccuracy.jpeg",
 ];
 final List<String> CarouselFeatures = [
   "Fast",

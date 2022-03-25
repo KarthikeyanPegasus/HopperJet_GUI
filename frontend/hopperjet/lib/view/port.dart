@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hopperjet/interacter/interactor.dart';
 import 'package:hopperjet/presenter/localsource/source.dart';
 import 'package:hopperjet/view/widgets/navbar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PortScanner extends StatefulWidget {
   const PortScanner({Key? key}) : super(key: key);
@@ -40,6 +41,14 @@ class _PortScannerState extends State<PortScanner> {
         log(isfound.toString());
       });
     });
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -122,7 +131,7 @@ class _PortScannerState extends State<PortScanner> {
                       right: MediaQuery.of(context).size.width * 0.05,
                     ),
                     child: const Text(
-                      F2theory,
+                      F7theory,
                       style: TextStyle(color: Colors.white, fontSize: 14),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 10,
@@ -135,6 +144,9 @@ class _PortScannerState extends State<PortScanner> {
                     ),
                     child: TextButton(
                       onPressed: () {
+                        const url =
+                            'https://en.wikipedia.org/wiki/Port_scanner';
+                        launchURL(url);
                         // redirect to the wiki page
                       },
                       child: const Text(

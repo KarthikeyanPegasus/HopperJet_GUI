@@ -10,7 +10,7 @@ void main() {
   runApp(const MyApp());
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     setWindowTitle('HopperJet');
-    setWindowMinSize(const Size(1500, 900));
+    setWindowMinSize(const Size(1500, 1000));
     setWindowMaxSize(Size.infinite);
   }
 }
