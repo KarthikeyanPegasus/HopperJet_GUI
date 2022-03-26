@@ -17,7 +17,7 @@ class PromiscuousDetection extends StatefulWidget {
 class _PromiscuousDetectionState extends State<PromiscuousDetection> {
   late bool isfound;
   String IPaddress = "";
-  String dropdownvalue = promList[1];
+  String dropdownvalue = promList[2];
   late bool isstarted = false;
   late String VerifiedIp;
   late String outputstr;
